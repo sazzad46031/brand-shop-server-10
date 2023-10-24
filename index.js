@@ -32,7 +32,21 @@ async function run() {
     await client.connect();
 
     const productsCollection = client.db('productsDB').collection('products')
-
+    const brandsCollection = client.db('BrandsDB').collection('brands')
+    
+    app.get('/brands', async(req,res)=>{
+        const brands = brandsCollection.find()
+        const result = await brands.toArray()
+        res.send(result)
+    })
+    
+    // app.get('/brands/:id', async(req,res)=>{
+    //   const id = req.params.id;
+    //     const cursor = productsCollection.find()
+    //     // const result = await cursor.toArray()
+    //     // res.send(result)
+    // })
+    
     app.get('/products', async(req,res)=>{
         const cursor = productsCollection.find()
         const result = await cursor.toArray()
